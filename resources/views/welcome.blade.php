@@ -10,17 +10,30 @@
         <div id="logo"><img src="{{asset("img/logo.png")}}" width="100" height="100"></div>
         <div id="label">Авторизация в системе</div>
         <div id="form">
-            <form>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
                 <div class="group">
-                    <input type="text" required>
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                     <span class="bar"></span>
-                    <label>Логин</label>
+                    <label for="email">{{ __('E-Mail Address') }}</label>
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
                 </div>
                 <div class="group">
-                    <input type="text" required>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                     <span class="bar"></span>
-                    <label>Пароль</label>
-                    <button class="btn" type="button"><span>ВОЙТИ В СИСТЕМУ</span></button>
+                    <label for="password">{{ __('Password') }}</label>
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+
+
+                    <button class="btn" type="submit"><span> {{ __('Login') }}</span></button>
                 </div>
                 <div id="link-under-button"><a href="#" id="inpt">Забыли пароль?</a></div>
             </form>

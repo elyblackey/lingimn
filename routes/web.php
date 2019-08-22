@@ -21,3 +21,10 @@ Route::get('/downloads','DownloadsController@indexp');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('setlocale/{locale}', function ($locale) {
+    if (in_array($locale, \Config::get('app.locales'))) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+});
